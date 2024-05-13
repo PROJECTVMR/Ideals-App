@@ -2,6 +2,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:icon/icon.dart';
+
 
 
 void main() {
@@ -41,6 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         backgroundColor: Colors.grey[300],
         body: Container(
+          width: MediaQuery.of(context).size.width,
           //color: Colors.black,
           child: Stack(
             alignment: AlignmentDirectional.bottomCenter,
@@ -96,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                   //color: Colors.black,
                   margin: EdgeInsets.only(top:210, left: 30 ,right: 22.0),
-
+                  width: MediaQuery.of(context).size.width,
                   child: SingleChildScrollView(
                       child:Column(children: const <Widget>[
                     Row(
@@ -151,29 +155,70 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        onTap: (value) => {},
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_sharp),
-            label: 'Home',
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 20,
+              color: Colors.black.withOpacity(.1),
+            )
+          ],
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            child: GNav(
+              rippleColor: Colors.red[300]!,
+              hoverColor: Colors.grey[100]!,
+              gap: 8,
+              activeColor:  Color.fromARGB(164, 234, 58, 14),
+              iconSize: 24,
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              duration: Duration(milliseconds: 400),
+              tabBackgroundColor: Colors.grey[100]!,
+              color: Colors.grey[350],
+              tabs: [
+                GButton(
+                  icon: Icons.home,
+                  text: 'Home',
+                ),
+                GButton(
+                  icon: Icons.favorite,
+                  text: 'Favorites',
+                ),
+                GButton(
+                  icon: Icons.plus_one,
+                  text: 'Add',
+                ),
+                GButton(
+                  icon: Icons.messenger,
+                  text: 'Search',
+                ),
+                GButton(
+                  icon: Icons.person,
+                  text: 'Profile',
+                ),
+              ],
+              selectedIndex: 0,
+              onTabChange: (index) {
+                setState(() {
+                  var selectedIndex = index;
+                });
+              },
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_sharp),
-            label: 'Favorite',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.messenger),
-            label: 'message',
-          ),
-
-        ],
+        ),
       ),
 
     );
   }
 }
+
+
+
+
 
 //Motif
 // ignore: camel_case_types
@@ -346,7 +391,7 @@ class _BannerWidgetState extends State<BannerWidget> {
   Widget build(BuildContext context) {
     return  Container(
       margin: EdgeInsets.only(top: 30.0),
-      width: double.infinity,
+      width: MediaQuery.of(context).size.width,
       height: 240,
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -434,7 +479,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   Widget build(BuildContext context) {
     return  Container(
         margin: EdgeInsets.only(top: 10.0),
-        width: double.infinity,
+        width: MediaQuery.of(context).size.width,
         height: 40,
       child: ListView(
         scrollDirection: Axis.horizontal,
